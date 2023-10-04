@@ -11,8 +11,8 @@ class UserCreate(UserBase):
     password: str = Field(min_length=6)
 
 
-class User(UserBase, table=True):
-    id: str = Field(default=ulid(), primary_key=True)
+class User(UserBase, table = True):
+    id: str = Field(default = ulid(), primary_key = True)
     password: str
 
     @staticmethod
@@ -24,7 +24,7 @@ class User(UserBase, table=True):
         return user
 
     def to_user_read(self):
-        user = UserRead(id=self.id, name=self.name, login=self.login)
+        user = UserRead(id = self.id, name = self.name, login = self.login)
         return user
 
 
@@ -33,8 +33,8 @@ class UserRead(UserBase):
 
 
 class TaskBase(SQLModel):
-    description: str = Field(min_length=3)
-    done: bool = Field(default=False)
+    description: str = Field(min_length = 3)
+    done: bool = Field(default = False)
 
 
 class TaskCreate(TaskBase):
@@ -62,5 +62,5 @@ class TaskRead(TaskBase):
     id: str
     owner: UserRead | None = None
 
-class TaskUp(TaskBase):
-    done: str
+class TaskUp(SQLModel):
+    done: bool

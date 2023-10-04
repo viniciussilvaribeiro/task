@@ -30,8 +30,7 @@ class TaskRepository:
         get = select(Task).where(Task.id == id, user_id == user_id)
         task = self.session.exec(get).one()
         task.done = done
-        sttm = update(Task).where(Task.id == id, Task.user_id == user_id)
-        self.session.exec(sttm)
+        self.session.add(task)
         self.session.commit()
         self.session.refresh(task)
 
