@@ -12,7 +12,7 @@ class UserCreate(UserBase):
 
 
 class User(UserBase, table = True):
-    id: str = Field(default = ulid(), primary_key = True)
+    id: str = Field(default = ulid, primary_key = True)
     password: str
 
     @staticmethod
@@ -42,7 +42,7 @@ class TaskCreate(TaskBase):
 
 
 class Task(TaskBase, table=True):
-    id: str = Field(default=ulid(), primary_key=True)
+    id: str = Field(default=ulid, primary_key=True)
     user_id: str | None = Field(default=None, foreign_key="user.id")
 
     @staticmethod
