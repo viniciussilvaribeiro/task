@@ -44,11 +44,13 @@ def delete_task(id: str, repo: TaskRepository = Depends(TaskRepository), logged_
     return task.to_task_read()
 
 @router.put('/{id}', status_code = status.HTTP_200_OK)
-def update_task(id: str, done: TaskUp, repo: TaskRepository = Depends(TaskRepository), logged_user: UserRead = Depends(get_logged_user)):
+def update_task(id: str, update: TaskUp, repo: TaskRepository = Depends(TaskRepository), logged_user: UserRead = Depends(get_logged_user)):
     task = repo.get_by_id(id)
 
     if not task or task.user_id != logged_user.id:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Task not found!")
+    
+    repo.update_by_id(id, logged_user.id, update.done)
 
     return task.to_task_read()
